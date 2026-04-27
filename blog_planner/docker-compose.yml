@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: blog_planner
+    ports:
+      - "8080:80"   # Access via http://localhost:8080/
+                    # Using 8080 because Laragon likely occupies port 80
+    volumes:
+      - .:/var/www/blog_planner
+    environment:
+      - HHVM_REPO_LOCAL_MODE=true
+    extra_hosts:
+      - "host.docker.internal:host-gateway"   # Allows reaching Laragon's MySQL
+    restart: unless-stopped
